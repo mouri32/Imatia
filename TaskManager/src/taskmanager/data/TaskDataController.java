@@ -129,6 +129,7 @@ public class TaskDataController {
 			System.out.println("La tarea se ha modificado correctamente");
 
 		} else {
+			System.out.println("\n");
 			System.out.println("El valor de la posicion no es válido o la lista está vacía");
 
 		}
