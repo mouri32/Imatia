@@ -40,11 +40,10 @@ public class TaskFileController {
 			try {
 				f.createNewFile();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				System.out.printf("\nHa ocurrido un error:\n%s", e.getMessage());
+
 			}
 			saveFile("LISTA DE TAREAS:\n", path);
-			System.out.println("El fichero se ha creado correctamente");
 		}
 
 	}
