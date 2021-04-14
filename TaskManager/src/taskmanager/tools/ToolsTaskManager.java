@@ -18,7 +18,7 @@ public class ToolsTaskManager {
 	 * 
 	 * @return an int which is the option
 	 */
-	public static int getOption() {
+	public static int getNumber() {
 
 		int option = 0;
 		@SuppressWarnings("resource")

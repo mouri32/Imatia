@@ -4,8 +4,6 @@
 package taskmanager.data;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,57 +11,12 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * class to implement task manager methods
+ * class to implement task controller methods
  * 
  * @author Jose A. Mouriño
  *
  */
-public class TaskDataManager {
-	
-	
-	/**
-	 * method to create the file
-	 * @param path
-	 */
-	public static void createFile(String path) {
-
-		File f = new File(path);
-		if (!f.exists()) {
-			try {
-				f.createNewFile();
-				saveFile("Lista de ficheros:\n", path);
-				System.out.println("El fichero se ha creado correctamente");
-			} catch (IOException e) {
-				System.out.printf("\nHa ocurrido un error al crear el fichero:\n%s", e.getMessage());
-
-			}
-		}
-			
-	}
-
-	/**
-	 * method to save a string of tasks in a text file
-	 * 
-	 * @param task
-	 * @param path
-	 */
-	private static void saveFile(String task, String path) {
-
-		File file = new File(path);
-		FileWriter fw;
-		try {
-			fw = new FileWriter(file);
-			fw.write(task);
-			fw.flush();
-			fw.close();
-		} catch (IOException e) {
-
-			System.out.printf("\nHa ocurrido un error:\n%s", e.getMessage());
-
-		}
-
-	}
-	
+public class TaskDataController {
 
 	/**
 	 * method to add a task to a text file
@@ -73,7 +26,7 @@ public class TaskDataManager {
 	 */
 	public static void saveTask(String task, String path) {
 
-		String taskTitle = readFile(path) + task;
+		String taskTitle = TaskFileController.readFile(path) + task;
 
 		try {
 			File file = new File(path);
@@ -90,36 +43,6 @@ public class TaskDataManager {
 	}
 
 	/**
-	 * method to read the content of a text file
-	 * 
-	 * @param path
-	 * @return
-	 */
-	private static String readFile(String path) {
-
-		String data = "";
-		int fact;
-		
-		try {
-			FileReader fr = new FileReader(path);
-			while ((fact = fr.read()) != -1) {
-				data = data + (char) fact;
-			}
-
-			fr.close();
-		} catch (FileNotFoundException e) {
-				System.out.printf("\nHa ocurrido un error. No se ha encontrado el fichero:\n%s", e.getMessage());
-
-		} catch (IOException e) {
-				System.out.printf("\nHa ocurrido un error:\n%s", e.getMessage());
-
-		}
-		
-		return data;
-
-	}
-
-	/**
 	 * method to get a list of tasks
 	 * 
 	 * @param path
@@ -129,7 +52,7 @@ public class TaskDataManager {
 
 		List<String> taskList = new ArrayList<>();
 		// get in an array of strings the tasks saved in the text file
-		String[] tasks = readFile(path).split("\n");
+		String[] tasks = TaskFileController.readFile(path).split("\n");
 		// get the list of tasks from the array
 		taskList = Arrays.asList(tasks);
 
@@ -143,10 +66,14 @@ public class TaskDataManager {
 	 * @param task
 	 */
 	public static void printTask(List<String> task) {
+		// we create a variable to display an identifier in each task to better identify
+		// the tasks
+		int position = 0;
 
 		for (String tarea : task) {
 
-			System.out.println(tarea);
+			System.out.println(position + ". " + tarea);
+			position++;
 
 		}
 
@@ -161,14 +88,13 @@ public class TaskDataManager {
 	public static void deleteTask(int position, String path) {
 
 		List<String> taskList = new ArrayList<>();
-		String taskTitle = "";
 
 		// get in an array of strings the tasks saved in the text file
-		String[] tasks = readFile(path).split("\n");
+		String[] tasks = TaskFileController.readFile(path).split("\n");
 		// get the list of tasks from the array to make it mutable
 		taskList.addAll(Arrays.asList(tasks));
 		// delete selected task if position is correct and the list has tasks
-		if (position >= 1 && position < taskList.size() && taskList.size() >1){
+		if (position >= 1 && position < taskList.size() && taskList.size() > 1) {
 			taskList.remove(position);
 			System.out.println("La tarea se ha borrado correctamente");
 
@@ -176,16 +102,57 @@ public class TaskDataManager {
 			System.out.println("El valor de la posicion no es válido o la lista está vacía");
 
 		}
+		// persist the list of tasks with the modifications
+		saveListTaskModifications(taskList, path);
+
+	}
+
+	/**
+	 * method to modify a task by making a substitution
+	 * 
+	 * @param position
+	 * @param task
+	 * @param path
+	 */
+	public static void modifyTask(int position, String task, String path) {
+
+		List<String> taskList = new ArrayList<>();
+
+		// get in an array of strings the tasks saved in the text file
+		String[] tasks = TaskFileController.readFile(path).split("\n");
+		// get the list of tasks from the array to make it mutable
+		taskList.addAll(Arrays.asList(tasks));
+		// modify selected task if position is correct and the list has tasks
+		if (position >= 1 && position < taskList.size() && taskList.size() > 1) {
+
+			taskList.set(position, task);
+			System.out.println("La tarea se ha modificado correctamente");
+
+		} else {
+			System.out.println("El valor de la posicion no es válido o la lista está vacía");
+
+		}
+		// persist the list of tasks with the modifications
+		saveListTaskModifications(taskList, path);
+
+	}
+
+	/**
+	 * method to save the modifications of the task list in the file
+	 * 
+	 * @param taskList
+	 * @param path
+	 */
+	private static void saveListTaskModifications(List<String> taskList, String path) {
+
+		String taskTitle = "";
 		// rebuild the task string
 		for (String task : taskList) {
 			taskTitle += task + "\n";
-	
+
 		}
-		//save the task string with the changes in the text file
-		saveFile(taskTitle, path);
+		// save the task string with the changes in the text file
+		TaskFileController.saveFile(taskTitle, path);
 
 	}
-	
-	
-
 }// TaskDataManager
