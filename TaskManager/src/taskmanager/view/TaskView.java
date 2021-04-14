@@ -41,7 +41,7 @@ public class TaskView {
 
 			// if the option is less than 0 or greater than 3, it is not a
 			// valid option
-			if (userOption < 0 || userOption > 3) {
+			if (userOption < 0 || userOption > 4) {
 				System.out.println("Opción no válida. Vuelva a escoger");
 			} else if (userOption != 0) {
 
