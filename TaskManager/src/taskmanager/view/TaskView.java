@@ -81,7 +81,7 @@ public class TaskView {
 					System.out.print("Introduzca la posicion de la tarea que desea modificar: ");
 					// we obtain the position that we want to modify
 					position = ToolsTaskManager.getNumber();
-					System.out.printf("Introduzca la nueva tarea: ");
+					System.out.print("Introduzca la nueva tarea: ");
 					task = sc.nextLine();
 					// modify the task in position
 					TaskDataController.modifyTask(position, task, path);
