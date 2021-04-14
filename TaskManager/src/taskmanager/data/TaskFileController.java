@@ -24,7 +24,7 @@ public class TaskFileController {
 	 */
 	public static String getPath() {
 
-		return "files/data.txt";
+		return "./data.txt";
 
 	}
 
