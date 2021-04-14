@@ -6,6 +6,11 @@ import taskmanager.data.TaskDataController;
 import taskmanager.data.TaskFileController;
 import taskmanager.tools.ToolsTaskManager;
 
+/**
+ * class to implement the menu and the initial view
+ * @author Jose Mouriño
+ *
+ */
 public class TaskView {
 	
 	//get the path of the text file with data
@@ -111,7 +116,7 @@ public class TaskView {
 			System.out.println("La lista de tareas está vacía");
 		}
 		System.out.println("\n");
-		
+		//show a message to go to the menu
 		System.out.printf("Pulse cualquier tecla para ir al menu principal: ");
 		if(sc.hasNextLine()) {
 			showMenuView();
