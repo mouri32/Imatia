@@ -53,12 +53,13 @@ public class TaskDataController {
 		List<String> taskList = new ArrayList<>();
 		// get in an array of strings the tasks saved in the text file
 		String[] tasks = TaskFileController.readFile(path).split("\n");
-		// get the list of tasks from the array
-		taskList = Arrays.asList(tasks);
+		//  get the list of tasks from the array to make it mutable
+		taskList.addAll(Arrays.asList(tasks));
 
 		return taskList;
 
 	}
+	
 
 	/**
 	 * method to print a list of tasks indicating the position
@@ -68,11 +69,13 @@ public class TaskDataController {
 	public static void printTask(List<String> task) {
 		// we create a variable to display an identifier in each task to better identify
 		// the tasks
-		int position = 0;
+		int position = 1;
+		
+		System.out.println("\n"+task.get(0)+"\n");
+		
+		for (int i = 1; i < task.size(); i++) {
 
-		for (String tarea : task) {
-
-			System.out.println(position + ". " + tarea);
+			System.out.println(position + ". " + task.get(i));
 			position++;
 
 		}
@@ -88,11 +91,9 @@ public class TaskDataController {
 	public static void deleteTask(int position, String path) {
 
 		List<String> taskList = new ArrayList<>();
-
-		// get in an array of strings the tasks saved in the text file
-		String[] tasks = TaskFileController.readFile(path).split("\n");
-		// get the list of tasks from the array to make it mutable
-		taskList.addAll(Arrays.asList(tasks));
+		//  get the list of tasks
+		taskList = getTask(path);
+		
 		// delete selected task if position is correct and the list has tasks
 		if (position >= 1 && position < taskList.size() && taskList.size() > 1) {
 			taskList.remove(position);
@@ -117,14 +118,11 @@ public class TaskDataController {
 	public static void modifyTask(int position, String task, String path) {
 
 		List<String> taskList = new ArrayList<>();
-
-		// get in an array of strings the tasks saved in the text file
-		String[] tasks = TaskFileController.readFile(path).split("\n");
-		// get the list of tasks from the array to make it mutable
-		taskList.addAll(Arrays.asList(tasks));
+		//  get the list of tasks
+		taskList = getTask(path);
 		// modify selected task if position is correct and the list has tasks
 		if (position >= 1 && position < taskList.size() && taskList.size() > 1) {
-
+			
 			taskList.set(position, task);
 			System.out.println("La tarea se ha modificado correctamente");
 
@@ -156,4 +154,34 @@ public class TaskDataController {
 		TaskFileController.saveFile(taskTitle, path);
 
 	}
+	
+	public static void orderTask(int position, int newPosition, String path) {
+		
+		List<String> taskList = new ArrayList<>();
+		String task="";
+		String taskChanged="";
+
+		//  get the list of tasks
+		taskList = getTask(path);
+		// modify selected task if position is correct and the list has tasks
+		if (position >= 1 && position < taskList.size() && taskList.size() > 1 
+				&& newPosition >=1 && newPosition < taskList.size()) {
+			task = taskList.get(position);
+			taskChanged = taskList.get(newPosition);
+			taskList.set(newPosition, task);
+			taskList.set(position, taskChanged);
+			System.out.println("La tarea se ha insertado en la posicion seleccionada correctamente");
+
+		} else {
+			System.out.println("\n");
+			System.out.println("El valor de la posicion no es válido o la lista está vacía");
+
+		}
+		// persist the list of tasks with the modifications
+		saveListTaskModifications(taskList, path);
+			
+	}
+	
+	
+	
 }// TaskDataManager

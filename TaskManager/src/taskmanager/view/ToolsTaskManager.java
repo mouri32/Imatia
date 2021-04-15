@@ -1,28 +1,27 @@
-/**
- * 
- */
-package taskmanager.tools;
+package taskmanager.view;
 
 import java.util.Scanner;
 
 /**
- * utility class, for example to get numerical values
- * 
- * @author Jose A. Mouriño
- *
- */
+* utility class, for example to get numerical values
+* 
+* @author Jose A. Mouriño
+*
+*/
 public class ToolsTaskManager {
-
+	
 	/**
 	 * method to get the option and make it a numeric value
 	 * 
 	 * @return an int which is the option
 	 */
+	
+	
 	public static int getNumber() {
 
 		int option = 0;
-		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
+		
 		boolean CorrectValue = true;
 
 		// Loop for get a number
@@ -45,5 +44,26 @@ public class ToolsTaskManager {
 		return option;
 
 	}
+	
+	public static boolean getConfirmation(String action) {
+		
+		Boolean confirmation  = false;
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.println("¿Esta seguro de "+action+" la tarea?");
+		System.out.print("Escriba  Si/No para confirmar: ");
+		
+		String request = sc.nextLine();
+		
+		if(request.equalsIgnoreCase("si")) {
+			confirmation = true;
+		}
+		if(request.equalsIgnoreCase("no")) {
+			confirmation = false;
+		}
+		
+		 return confirmation;
+	}
 
-}// ToolsTaskManager
+
+}

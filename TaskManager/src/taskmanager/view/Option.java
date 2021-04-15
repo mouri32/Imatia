@@ -9,7 +9,7 @@ package taskmanager.view;
  */
 public enum Option {
 	
-	CREATE, LIST, MODIFY, DELETE;
+	CREATE, LIST, MODIFY, DELETE, ORDER;
 	
 	public static Option getOption(int userOption) {
 		
@@ -26,6 +26,9 @@ public enum Option {
 		}
 		if(userOption == 4) {
 			option = DELETE;
+		}
+		if(userOption == 5) {
+			option = ORDER;
 		}
 		
 		
