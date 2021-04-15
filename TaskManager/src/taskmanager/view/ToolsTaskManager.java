@@ -10,6 +10,8 @@ import java.util.Scanner;
 */
 public class ToolsTaskManager {
 	
+	private static Scanner sc;
+
 	/**
 	 * method to get the option and make it a numeric value
 	 * 
@@ -20,7 +22,7 @@ public class ToolsTaskManager {
 	public static int getNumber() {
 
 		int option = 0;
-		Scanner sc = new Scanner(System.in);
+		sc = new Scanner(System.in);
 		
 		boolean CorrectValue = true;
 
@@ -48,7 +50,7 @@ public class ToolsTaskManager {
 	public static boolean getConfirmation(String action) {
 		
 		Boolean confirmation  = false;
-		Scanner sc = new Scanner(System.in);
+		sc = new Scanner(System.in);
 		
 		System.out.println("¿Esta seguro de "+action+" la tarea?");
 		System.out.print("Escriba  Si/No para confirmar: ");

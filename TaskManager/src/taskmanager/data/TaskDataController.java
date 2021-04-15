@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * class to implement task controller methods
@@ -17,6 +18,8 @@ import java.util.List;
  *
  */
 public class TaskDataController {
+
+	private static Scanner sc;
 
 	/**
 	 * method to add a task to a text file
@@ -180,6 +183,31 @@ public class TaskDataController {
 		// persist the list of tasks with the modifications
 		saveListTaskModifications(taskList, path);
 			
+	}
+	
+	public static int selectTask(String path) {
+
+		sc = new Scanner(System.in);
+		List<String> taskList = new ArrayList<>();
+		String title = "";
+		int position = 0;
+
+		// get the list of tasks
+		taskList = TaskDataController.getTask(path);
+
+		System.out.print("Introduzca la posicion o el titulo de la tarea que desea seleccionar: ");
+		if (sc.hasNextInt()) {
+			position = sc.nextInt();
+		} else {
+			title = sc.nextLine();
+		}
+
+		if (title != "") {
+
+			position = taskList.indexOf(title);
+		}
+		//sc.close();
+		return position;
 	}
 	
 	

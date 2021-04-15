@@ -1,6 +1,5 @@
 package taskmanager.view;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import taskmanager.data.TaskDataController;
@@ -16,13 +15,14 @@ public class TaskView {
 
 	// get the path of the text file with data
 	String path = TaskFileController.getPath();
+	private Scanner sc;
 
 	
 	// loop to show the menu
 
 	public void showMenuView() {
 		
-		Scanner sc = new Scanner(System.in);
+		sc = new Scanner(System.in);
 		// variable where we store the position of the task
 		int position, newPosition;
 		// variable where we store a task
@@ -74,7 +74,7 @@ public class TaskView {
 				case DELETE: // Delete Task
 					
 					// we obtain the position that we want to delete
-					position = selectTask(path);
+					position = TaskDataController.selectTask(path);
 					// delete the task in position
 					boolean confirmationDelete = ToolsTaskManager.getConfirmation("borrar");
 					// get the confirmation of the delete
@@ -86,7 +86,7 @@ public class TaskView {
 
 				case MODIFY:
 					// we obtain the position that we want to modify
-					position = selectTask(path);
+					position = TaskDataController.selectTask(path);
 					System.out.print("Introduzca la nueva tarea: ");
 					task = sc.nextLine();
 					boolean confirmationModify = ToolsTaskManager.getConfirmation("modificar");
@@ -101,7 +101,7 @@ public class TaskView {
 
 				case ORDER:
 					// we obtain the position that we want to modify
-					position = selectTask(path);
+					position = TaskDataController.selectTask(path);
 					System.out.print("Ahora introduzca la nueva posicion para la tarea: ");
 					newPosition = ToolsTaskManager.getNumber();
 
@@ -116,7 +116,7 @@ public class TaskView {
 		} while (userOption != 0); // option == 0 exit the program
 
 		// we are not going to read any more values
-		sc.close();
+		//sc.close();
 
 	}
 
@@ -125,7 +125,7 @@ public class TaskView {
 	 */
 	public void showInitialView() {
 
-		Scanner sc = new Scanner(System.in);
+		sc = new Scanner(System.in);
 		// get the list of tasks
 		List<String> tasks = TaskDataController.getTask(path);
 		// print the list of tasks if has elements
@@ -144,29 +144,6 @@ public class TaskView {
 		}
 	}
 
-	public static int selectTask(String path) {
-
-		Scanner sc = new Scanner(System.in);
-		List<String> taskList = new ArrayList<>();
-		String title = "";
-		int position = 0;
-
-		// get the list of tasks
-		taskList = TaskDataController.getTask(path);
-
-		System.out.print("Introduzca la posicion o el titulo de la tarea que desea seleccionar: ");
-		if (sc.hasNextInt()) {
-			position = sc.nextInt();
-		} else {
-			title = sc.nextLine();
-		}
-
-		if (title != "") {
-
-			position = taskList.indexOf(title);
-		}
-		//sc.close();
-		return position;
-	}
+	
 
 }
