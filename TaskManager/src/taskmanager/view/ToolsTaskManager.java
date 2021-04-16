@@ -47,6 +47,11 @@ public class ToolsTaskManager {
 
 	}
 	
+	/**
+	 * method to confirm the delete or the modify of task
+	 * @param action
+	 * @return boolean
+	 */
 	public static boolean getConfirmation(String action) {
 		
 		Boolean confirmation  = false;

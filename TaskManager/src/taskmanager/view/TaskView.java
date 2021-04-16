@@ -104,7 +104,7 @@ public class TaskView {
 					position = TaskDataController.selectTask(path);
 					System.out.print("Ahora introduzca la nueva posicion para la tarea: ");
 					newPosition = ToolsTaskManager.getNumber();
-
+					// change the position of the task in the list
 					TaskDataController.orderTask(position, newPosition, path);
 					showInitialView();
 					break;

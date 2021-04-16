@@ -185,6 +185,11 @@ public class TaskDataController {
 			
 	}
 	
+	/**
+	 * method to select the task by position or title
+	 * @param path
+	 * @return int with position
+	 */
 	public static int selectTask(String path) {
 
 		sc = new Scanner(System.in);
