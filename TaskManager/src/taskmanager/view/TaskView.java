@@ -17,11 +17,10 @@ public class TaskView {
 	String path = TaskFileController.getPath();
 	private Scanner sc;
 
-	
 	// loop to show the menu
 
 	public void showMenuView() {
-		
+
 		sc = new Scanner(System.in);
 		// variable where we store the position of the task
 		int position, newPosition;
@@ -72,16 +71,19 @@ public class TaskView {
 					break;
 
 				case DELETE: // Delete Task
-					
+
 					// we obtain the position that we want to delete
 					position = TaskDataController.selectTask(path);
 					// delete the task in position
 					boolean confirmationDelete = ToolsTaskManager.getConfirmation("borrar");
 					// get the confirmation of the delete
-					if(confirmationDelete == true) {
+					if (confirmationDelete == true) {
 						TaskDataController.deleteTask(position, path);
+
+					}else {
 						showInitialView();
 					}
+					showInitialView();
 					break;
 
 				case MODIFY:
@@ -91,12 +93,13 @@ public class TaskView {
 					task = sc.nextLine();
 					boolean confirmationModify = ToolsTaskManager.getConfirmation("modificar");
 					// get the confirmation of the delete
-					if(confirmationModify == true) {
+					if (confirmationModify == true) {
 						// modify the task in position
 						TaskDataController.modifyTask(position, task, path);
+					}else {
 						showInitialView();
 					}
-					
+					showInitialView();
 					break;
 
 				case ORDER:
@@ -108,6 +111,7 @@ public class TaskView {
 					TaskDataController.orderTask(position, newPosition, path);
 					showInitialView();
 					break;
+					
 
 				}// switch
 
@@ -116,7 +120,7 @@ public class TaskView {
 		} while (userOption != 0); // option == 0 exit the program
 
 		// we are not going to read any more values
-		//sc.close();
+		// sc.close();
 
 	}
 
@@ -143,7 +147,5 @@ public class TaskView {
 
 		}
 	}
-
-	
 
 }
