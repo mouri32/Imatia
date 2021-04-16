@@ -23,7 +23,7 @@ public class TaskManagerApp {
 		TaskView taskView = new TaskView();
 
 		taskView.showInitialView();
-				
+		
 		System.out.println("Finalizando la ejecución del programa");
 
 	}// main
