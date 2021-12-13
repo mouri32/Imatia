@@ -17,7 +17,7 @@ public class TaskManagerApp {
 	 */
 	public static void main(String[] args) {
 		
-		//crate the file if not exist
+		//create the file if not exist
 		TaskFileController.createFile(TaskFileController.getPath());
 
 		TaskView taskView = new TaskView();
